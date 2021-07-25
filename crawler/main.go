@@ -1,9 +1,8 @@
-package crawler
+package main
 
-import "github.com/imthaghost/learning/crawler/frontier"
+import "github.com/imthaghost/learning/crawler/fetcher"
 
 func main() {
-	// start passing values into dfs
-	someurl := "https://google.com"
-	frontier.DFS(someurl)
+	someurl := "facebook.com"
+	fetcher.Ip_address(someurl)
 }
