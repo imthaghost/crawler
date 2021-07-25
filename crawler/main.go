@@ -1,13 +1,19 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/imthaghost/learning/crawler/fetcher"
 	"github.com/imthaghost/learning/crawler/renderer"
 )
 
 func main() {
-	someurl := "golang.org"
+	someurl := "https://golang.org"
 
-	fetcher.Ip_address(someurl)
+	ip, err := fetcher.Ip_address(someurl)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(ip)
 	renderer.Render(someurl)
 }

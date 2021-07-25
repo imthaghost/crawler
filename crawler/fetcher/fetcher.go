@@ -1,15 +1,22 @@
 package fetcher
 
 import (
-	"fmt"
 	"net"
+	"net/url"
 )
 
-func Ip_address(url string) {
-	iprecords, _ := net.LookupIP(url)
-	fmt.Print(iprecords)
-
-	for _, ip := range iprecords {
-		fmt.Print(ip)
+func Ip_address(input string) (string, error) {
+	// parse as url
+	url, err := url.Parse(input)
+	if err != nil {
+		return "", err
 	}
+	host := url.Host
+	iprecords, err := net.LookupIP(host)
+	if err != nil {
+		return "", err
+	}
+	ip := iprecords[1].String()
+
+	return ip, nil
 }
