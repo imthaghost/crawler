@@ -3,11 +3,11 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/imthaghost/crawler/fetcher"
-	"github.com/imthaghost/crawler/renderer"
+	"github.com/imthaghost/crawler/pkg/fetcher"
+	"github.com/imthaghost/crawler/pkg/renderer"
 )
 
-func Execute() {
+func main() {
 	someurl := "https://golang.org"
 
 	ip, err := fetcher.Ip_address(someurl)
