@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/imthaghost/learning/crawler/fetcher"
-	"github.com/imthaghost/learning/crawler/renderer"
+	"github.com/imthaghost/crawler/fetcher"
+	"github.com/imthaghost/crawler/renderer"
 )
 
 func main() {
