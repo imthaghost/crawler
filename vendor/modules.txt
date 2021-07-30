@@ -1,0 +1,5 @@
+# github.com/enriquebris/goconcurrentqueue v0.6.0
+## explicit
+github.com/enriquebris/goconcurrentqueue
+# github.com/stretchr/testify v1.7.0
+## explicit
