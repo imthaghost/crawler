@@ -4,3 +4,8 @@
 # JetBrains stuff
 **/.idea
 
+# Build stuff
+/bin
+.tester_image
+.test
+.lint
