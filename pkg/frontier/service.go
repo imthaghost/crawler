@@ -7,7 +7,7 @@ import (
 
 // frontier
 type frontier struct {
-	queue queue.Queue // FIFO (First in First Out)
+	queue queue.Service // FIFO (First in First Out)
 }
 
 // Service ...

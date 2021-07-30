@@ -4,12 +4,12 @@ import (
 	"github.com/enriquebris/goconcurrentqueue"
 )
 
-// Queue is an abstract collection of entities
+// Service is an abstract collection of entities
 // that are maintained in a sequence and can
 // be modified by the addition of entities
 // at one end of the sequence and the removal
 // of entities from the other end of the sequence
-type Queue interface {
+type Service interface {
 	// Enqueue element
 	Enqueue(interface{}) error
 	// Dequeue element
@@ -17,7 +17,7 @@ type Queue interface {
 }
 
 // NewQueue instantiates a queue
-func NewQueue() Queue {
+func NewQueue() Service {
 	return &queue{
 		q: goconcurrentqueue.NewFIFO(),
 	}
