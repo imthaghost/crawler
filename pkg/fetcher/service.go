@@ -11,7 +11,7 @@ import (
 // against the robot.txt to make certain parts of the
 // websites are not crawled as per the robots.txt.
 type Service interface {
-	GetIP(host string) (string, error)
+	GetIP(host string) (net.IP, error)
 	GetDNS(host string) (string, error)
 }
 
@@ -23,21 +23,26 @@ func NewFetcher() Service {
 }
 
 // GetIP returns an IPV4 address from given host
-func (f *fetcher) GetIP(host string) (string, error) {
+func (f *fetcher) GetIP(rawURL string) (net.IP, error) {
 	// parse as url
-	u, err := url.Parse(host)
+	parsedURL, err := url.Parse(rawURL)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	h := u.Host
-	records, err := net.LookupIP(h)
+	host := parsedURL.Host
+	// look up IPV4 IP address
+	ipAddr := *new(net.IP)
+	ips, err := net.LookupIP(host)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	// TODO: better implementation
-	ip := records[1].String()
+	for _, ip := range ips {
+		if ipv4 := ip.To4(); ipv4 != nil {
+			ipAddr = ipv4.To4()
+		}
+	}
 
-	return ip, nil
+	return ipAddr, nil
 }
 
 // GetDNS returns the DNS server from given host
