@@ -12,7 +12,11 @@ import (
 // websites are not crawled as per the robots.txt.
 type Service interface {
 	GetIP(host string) (net.IP, error)
-	GetDNS(host string) (string, error)
+	GetCNAME(host string) (string, error)
+	ReverseLookup(ip net.IP) ([]string, error)
+	GetNameServer(host string) (string, error)
+	GetMX(host string) (string, error)
+	GetTXT(host string) (string, error)
 }
 
 type fetcher struct {}
@@ -45,7 +49,28 @@ func (f *fetcher) GetIP(rawURL string) (net.IP, error) {
 	return ipAddr, nil
 }
 
-// GetDNS returns the DNS server from given host
-func (f *fetcher) GetDNS(host string) (string, error) {
+func (f *fetcher) GetCNAME(host string) (string, error) {
 	return "", nil
 }
+
+// ReverseLookup returns the CNAME server from given host
+func (f *fetcher) ReverseLookup(addr net.IP) ([]string, error) {
+	var cnameList []string
+	return cnameList, nil
+}
+
+func (f *fetcher) GetNameServer(host string) (string, error) {
+	return "", nil
+}
+
+func (f *fetcher) GetMX(host string) (string, error) {
+	return "", nil
+}
+
+func (f *fetcher) GetTXT(host string) (string, error) {
+	return "", nil
+}
+
+
+
+
