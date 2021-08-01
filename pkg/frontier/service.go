@@ -1,13 +1,15 @@
 package frontier
 
 import (
+	"github.com/imthaghost/crawler/pkg/cache"
 	"github.com/imthaghost/crawler/pkg/queue"
 	"net/url"
 )
 
 // frontier
 type frontier struct {
-	queue queue.Service // FIFO (First in First Out)
+	queueService queue.Service // FIFO (First in First Out)
+	cacheService cache.Service
 }
 
 // Service ...
@@ -20,7 +22,9 @@ type Service interface {
 // frontier will return the next URL that we need to be crawled.
 func NewService() Service {
 	return &frontier{
-		queue: queue.NewQueue(),
+		queueService: queue.NewQueue(),
+		cacheService: cache.NewCache(),
+
 		}
 }
 

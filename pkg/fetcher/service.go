@@ -13,10 +13,10 @@ import (
 type Service interface {
 	GetIP(host string) (net.IP, error)
 	GetCNAME(host string) (string, error)
-	ReverseLookup(ip net.IP) ([]string, error)
-	GetNameServer(host string) (string, error)
+	ReverseLookup(ip string) ([]string, error)
+	GetNameServer(host string) ([]*net.NS, error)
 	GetMX(host string) (string, error)
-	GetTXT(host string) (string, error)
+	GetTXT(host string) ([]string, error)
 }
 
 type fetcher struct {}
@@ -49,26 +49,50 @@ func (f *fetcher) GetIP(rawURL string) (net.IP, error) {
 	return ipAddr, nil
 }
 
+// GetCNAME returns the CNAME from given host
 func (f *fetcher) GetCNAME(host string) (string, error) {
-	return "", nil
+	cname,  err := net.LookupCNAME(host)
+	if err != nil {
+		return "", err
+	}
+
+	return cname, nil
+
 }
 
-// ReverseLookup returns the CNAME server from given host
-func (f *fetcher) ReverseLookup(addr net.IP) ([]string, error) {
-	var cnameList []string
-	return cnameList, nil
+// ReverseLookup returns the reverse record from a given ipv4 address
+func (f *fetcher) ReverseLookup(addr string) ([]string, error) {
+	ptr, err := net.LookupAddr(addr)
+	if err !=nil {
+		return nil, err
+	}
+
+	return ptr, nil
 }
 
-func (f *fetcher) GetNameServer(host string) (string, error) {
-	return "", nil
+// GetNameServer returns nameserver records from given host
+func (f *fetcher) GetNameServer(host string) ([]*net.NS, error) {
+	ns, err := net.LookupNS(host)
+	if err != nil {
+		return nil, err
+	}
+
+	return ns, nil
 }
 
+// GetMX returns a slice of MX structs
 func (f *fetcher) GetMX(host string) (string, error) {
 	return "", nil
 }
 
-func (f *fetcher) GetTXT(host string) (string, error) {
-	return "", nil
+// GetTXT returns information about the SPF records
+func (f *fetcher) GetTXT(host string) ([]string, error) {
+	records, err := net.LookupTXT(host)
+	if err != nil {
+			return nil, err
+		}
+
+	return records, nil
 }
 
 
