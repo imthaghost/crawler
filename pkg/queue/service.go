@@ -16,18 +16,19 @@ type Service interface {
 	Dequeue() (interface{}, error)
 }
 
-// NewQueue instantiates a queue
-func NewQueue() Service {
+type queue struct {
+	q goconcurrentqueue.Queue
+}
+
+
+// New instantiates a queue
+func New() Service {
 	return &queue{
 		q: goconcurrentqueue.NewFIFO(),
 	}
 }
 
-type queue struct {
-	q goconcurrentqueue.Queue
-}
-
-// Enqueue enqueues an element. Returns error if queue is locked.
+// Enqueue an element. Returns error if queue is locked.
 func (f *queue) Enqueue(i interface{}) error {
 	err := f.q.Enqueue(i)
 	if err != nil {
@@ -36,7 +37,7 @@ func (f *queue) Enqueue(i interface{}) error {
 	return nil
 }
 
-// Dequeue dequeues an element. Returns error if queue is locked or empty.
+// Dequeue an element. Returns error if queue is locked or empty.
 func (f* queue) Dequeue() (interface{}, error) {
 	item, err := f.q.Dequeue()
 	if err != nil {

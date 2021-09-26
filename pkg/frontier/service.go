@@ -22,8 +22,8 @@ type Service interface {
 // frontier will return the next URL that we need to be crawled.
 func NewService() Service {
 	return &frontier{
-		queueService: queue.NewQueue(),
-		cacheService: cache.NewCache(),
+		queueService: queue.New(),
+		cacheService: cache.New(),
 
 		}
 }

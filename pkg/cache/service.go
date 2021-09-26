@@ -14,8 +14,8 @@ type Service interface {
 
 type redis struct {}
 
-// NewCache ...
-func NewCache() Service {
+// New ...
+func New() Service {
 	return &redis{}
 }
 
