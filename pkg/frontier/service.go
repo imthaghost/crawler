@@ -8,7 +8,7 @@ import (
 
 // frontier
 type frontier struct {
-	queueService queue.Service // FIFO (First in First Out)
+	queueService queue.Service
 	cacheService cache.Service
 }
 
